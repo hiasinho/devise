@@ -46,7 +46,7 @@ module Devise
       end
       
       def accounts_used?
-        true
+        false
       end
 
     protected
