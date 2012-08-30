@@ -27,7 +27,7 @@ module Devise
 
         base.class_eval do
           validates_presence_of   :email, :if => :email_required?
-          validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed? && !responds_to(:account)
+          validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :unless => :accounts_used?
           validates_format_of     :email, :with  => email_regexp, :allow_blank => true, :if => :email_changed?
 
           validates_presence_of     :password, :if => :password_required?
@@ -43,6 +43,10 @@ module Devise
           raise "Could not use :validatable module since #{base} does not respond " <<
                 "to the following methods: #{unavailable_validations.to_sentence}."
         end
+      end
+      
+      def accounts_used?
+        true
       end
 
     protected

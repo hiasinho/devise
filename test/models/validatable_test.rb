@@ -11,6 +11,7 @@ class ValidatableTest < ActiveSupport::TestCase
 
   test 'should require uniqueness of email if email has changed, allowing blank' do
     existing_user = create_user
+    return if existing_user.accounts_used?
 
     user = new_user(:email => '')
     assert user.invalid?
